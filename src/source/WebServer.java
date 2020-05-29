@@ -1,0 +1,28 @@
+package source;
+
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+public class WebServer {
+    //
+    public void startServer(int port){
+        try {
+            @SuppressWarnings("resource")
+            ServerSocket serverSocket = new ServerSocket(port);
+            while(true){
+                //服务器套接字
+                Socket socket = serverSocket.accept();
+                new HttpServer(socket).start(); {
+                };
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //启动
+    public static void main(String[] args) {
+        new WebServer().startServer(8083);
+    }
+}
